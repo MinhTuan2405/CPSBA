@@ -1,0 +1,1 @@
+{"name":"cellphones-asis-bpmn-tools","private":true,"type":"module","dependencies":{"bpmn-js":"^18.33.0","bpmn-moddle":"^10.3.1","bpmnlint":"^12.1.1","puppeteer-core":"^25.18.1","xmllint-wasm":"^5.3.0"}}

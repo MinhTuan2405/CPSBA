@@ -1,0 +1,404 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" xmlns:color="http://www.omg.org/spec/BPMN/non-normative/color/1.0" id="Definitions_P2" targetNamespace="http://bpmn.io/schema/bpmn" exporter="CellphoneS As-Is BPMN generator" exporterVersion="1.0">
+  <bpmn:collaboration id="Collaboration_P2">
+    <bpmn:participant id="Participant_KH" name="Khách hàng" />
+    <bpmn:participant id="Participant_CPS" name="Hệ thống CellphoneS" processRef="Process_CPS" />
+    <bpmn:messageFlow id="Msg_19" name="Hướng dẫn chuẩn bị thiết bị" sourceRef="T1" targetRef="Participant_KH" />
+    <bpmn:messageFlow id="Msg_20" name="Phản hồi của khách" sourceRef="Participant_KH" targetRef="C1" />
+    <bpmn:messageFlow id="Msg_21" name="Thiết bị" sourceRef="Participant_KH" targetRef="T2" />
+    <bpmn:messageFlow id="Msg_22" name="Phiếu tiếp nhận" sourceRef="T4" targetRef="Participant_KH" />
+    <bpmn:messageFlow id="Msg_23" name="Máy dùng tạm" sourceRef="T5" targetRef="Participant_KH" />
+    <bpmn:textAnnotation id="Note_1">
+      <bpmn:text>SƠ ĐỒ CHI TIẾT 2: Nhận thiết bị và lập phiếu tiếp nhận
+Mô hình As-Is sơ bộ, dựng từ tài liệu công khai và hiểu biết của nhóm nghiên cứu. Đây không phải quy trình nội bộ chính thức của CellphoneS.</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:textAnnotation id="Note_2">
+      <bpmn:text>Chú giải màu ghi chú</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:textAnnotation id="Note_3">
+      <bpmn:text>Xanh lá: có nguồn công khai</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:textAnnotation id="Note_4">
+      <bpmn:text>Cam: cần khảo sát</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:textAnnotation id="Note_5">
+      <bpmn:text>Tím: do nhóm nghiên cứu đưa ra</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:textAnnotation id="Note_6">
+      <bpmn:text>Xanh dương: khoảng thời gian cần đo</bpmn:text>
+    </bpmn:textAnnotation>
+  </bpmn:collaboration>
+  <bpmn:process id="Process_CPS" name="Hệ thống CellphoneS" isExecutable="false">
+    <bpmn:laneSet id="LaneSet_CPS">
+      <bpmn:lane id="Lane_CH" name="Cửa hàng CellphoneS">
+        <bpmn:flowNodeRef>S</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>T1</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>C1</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>g1</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>E_chua</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>T2</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>T3</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>T4</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>g2</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>T5</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>m2</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>E_ok</bpmn:flowNodeRef>
+      </bpmn:lane>
+    </bpmn:laneSet>
+    <bpmn:startEvent id="S" name="Khách đồng ý giao máy">
+      <bpmn:outgoing>Flow_7</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:task id="T1" name="Hướng dẫn khách thoát tài khoản và sao lưu dữ liệu">
+      <bpmn:incoming>Flow_7</bpmn:incoming>
+      <bpmn:outgoing>Flow_8</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:intermediateCatchEvent id="C1" name="Nhận phản hồi của khách">
+      <bpmn:incoming>Flow_8</bpmn:incoming>
+      <bpmn:outgoing>Flow_9</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="C1_def" />
+    </bpmn:intermediateCatchEvent>
+    <bpmn:exclusiveGateway id="g1" name="Khách giao&#10;thiết bị?">
+      <bpmn:incoming>Flow_9</bpmn:incoming>
+      <bpmn:outgoing>Flow_10</bpmn:outgoing>
+      <bpmn:outgoing>Flow_11</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:endEvent id="E_chua" name="Khách chưa giao máy">
+      <bpmn:incoming>Flow_10</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:task id="T2" name="Nhận thiết bị từ khách">
+      <bpmn:incoming>Flow_11</bpmn:incoming>
+      <bpmn:outgoing>Flow_12</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="T3" name="Ghi nhận thông tin tiếp nhận">
+      <bpmn:incoming>Flow_12</bpmn:incoming>
+      <bpmn:outgoing>Flow_13</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="T4" name="Lập phiếu tiếp nhận và giao cho khách">
+      <bpmn:incoming>Flow_13</bpmn:incoming>
+      <bpmn:outgoing>Flow_14</bpmn:outgoing>
+      <bpmn:dataOutputAssociation id="DataOut_24">
+        <bpmn:targetRef>D_phieu</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
+    </bpmn:task>
+    <bpmn:exclusiveGateway id="g2" name="Áp dụng hỗ trợ&#10;máy dùng tạm?">
+      <bpmn:incoming>Flow_14</bpmn:incoming>
+      <bpmn:outgoing>Flow_15</bpmn:outgoing>
+      <bpmn:outgoing>Flow_16</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:task id="T5" name="Giao máy dùng tạm cho khách">
+      <bpmn:incoming>Flow_15</bpmn:incoming>
+      <bpmn:outgoing>Flow_17</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:exclusiveGateway id="m2">
+      <bpmn:incoming>Flow_16</bpmn:incoming>
+      <bpmn:incoming>Flow_17</bpmn:incoming>
+      <bpmn:outgoing>Flow_18</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:endEvent id="E_ok" name="Đã nhận thiết bị, khách có phiếu tiếp nhận">
+      <bpmn:incoming>Flow_18</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:dataObject id="D_phieu_obj" />
+    <bpmn:dataObjectReference id="D_phieu" name="Phiếu tiếp nhận" dataObjectRef="D_phieu_obj" />
+    <bpmn:sequenceFlow id="Flow_7" sourceRef="S" targetRef="T1" />
+    <bpmn:sequenceFlow id="Flow_8" sourceRef="T1" targetRef="C1" />
+    <bpmn:sequenceFlow id="Flow_9" sourceRef="C1" targetRef="g1" />
+    <bpmn:sequenceFlow id="Flow_10" name="Chưa:&#10;khách ra về" sourceRef="g1" targetRef="E_chua">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">Chưa:
+khách ra về</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_11" name="Có" sourceRef="g1" targetRef="T2">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">Có</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_12" sourceRef="T2" targetRef="T3" />
+    <bpmn:sequenceFlow id="Flow_13" sourceRef="T3" targetRef="T4" />
+    <bpmn:sequenceFlow id="Flow_14" sourceRef="T4" targetRef="g2" />
+    <bpmn:sequenceFlow id="Flow_15" name="Có" sourceRef="g2" targetRef="T5">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">Có</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_16" name="Không" sourceRef="g2" targetRef="m2">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">Không</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_17" sourceRef="T5" targetRef="m2" />
+    <bpmn:sequenceFlow id="Flow_18" sourceRef="m2" targetRef="E_ok" />
+    <bpmn:textAnnotation id="Note_25">
+      <bpmn:text>Đo thời gian 2: từ khi khách đồng ý giao máy đến khi có phiếu tiếp nhận.</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Note_25_assoc" sourceRef="Note_25" targetRef="S" />
+    <bpmn:textAnnotation id="Note_26">
+      <bpmn:text>Có nguồn (Quy định tiếp nhận của CellphoneS): khách thoát tài khoản cá nhân, tự sao lưu dữ liệu trước khi bàn giao; CellphoneS không chịu trách nhiệm về dữ liệu.</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Note_26_assoc" sourceRef="Note_26" targetRef="T1" />
+    <bpmn:textAnnotation id="Note_27">
+      <bpmn:text>Cần khảo sát: khi khách chưa chuẩn bị xong, khách hoàn tất tại quầy hay quay lại sau. Có thể là điểm phát sinh thời gian chờ.</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Note_27_assoc" sourceRef="Note_27" targetRef="C1" />
+    <bpmn:textAnnotation id="Note_28">
+      <bpmn:text>Cần khảo sát: thời điểm được ghi nhận là đã nhận máy.</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Note_28_assoc" sourceRef="Note_28" targetRef="T2" />
+    <bpmn:textAnnotation id="Note_29">
+      <bpmn:text>Cần khảo sát: các trường được ghi khi nhận máy; số lần phải bổ sung thông tin. Tham khảo, có nguồn (Hướng dẫn của CareS): họ tên, số điện thoại, email, mô tả lỗi.</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Note_29_assoc" sourceRef="Note_29" targetRef="T3" />
+    <bpmn:textAnnotation id="Note_30">
+      <bpmn:text>Có nguồn (Quy định tiếp nhận của CellphoneS): phải có phiếu mới lấy được máy; phiếu có giá trị 60 ngày.</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Note_30_assoc" sourceRef="Note_30" targetRef="T4" />
+    <bpmn:textAnnotation id="Note_31">
+      <bpmn:text>Nhóm nghiên cứu: lập phiếu cho mọi thiết bị, kể cả lỗi sửa nhanh. Cần khảo sát: phần mềm lập phiếu, các trường trên phiếu.</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Note_31_assoc" sourceRef="Note_31" targetRef="D_phieu" />
+    <bpmn:textAnnotation id="Note_32">
+      <bpmn:text>Có nguồn (Chính sách bảo hành CellphoneS): khách được hỗ trợ miễn phí một điện thoại khác trong thời gian đợi. Cần khảo sát: điều kiện, thời điểm giao, cách ghi nhận.</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Note_32_assoc" sourceRef="Note_32" targetRef="T5" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="Diagram_P2" name="CellphoneS As-Is - Sơ đồ chi tiết 2">
+    <bpmndi:BPMNPlane id="Plane_P2" bpmnElement="Collaboration_P2">
+      <bpmndi:BPMNShape id="Participant_KH_di" bpmnElement="Participant_KH" isHorizontal="true">
+        <dc:Bounds x="160" y="190" width="1980" height="60" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Participant_CPS_di" bpmnElement="Participant_CPS" isHorizontal="true">
+        <dc:Bounds x="160" y="314" width="1980" height="490" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_CH_di" bpmnElement="Lane_CH" isHorizontal="true">
+        <dc:Bounds x="190" y="314" width="1950" height="490" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="S_di" bpmnElement="S">
+        <dc:Bounds x="312" y="486" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="295" y="527" width="70" height="28" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="T1_di" bpmnElement="T1">
+        <dc:Bounds x="430" y="464" width="140" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="C1_di" bpmnElement="C1">
+        <dc:Bounds x="652" y="486" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="633" y="527" width="74" height="28" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="g1_di" bpmnElement="g1" isMarkerVisible="true">
+        <dc:Bounds x="815" y="479" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="774" y="457" width="58" height="28" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="E_chua_di" bpmnElement="E_chua">
+        <dc:Bounds x="822" y="606" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="864" y="610" width="85" height="28" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="T2_di" bpmnElement="T2">
+        <dc:Bounds x="940" y="464" width="140" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="T3_di" bpmnElement="T3">
+        <dc:Bounds x="1110" y="464" width="140" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="T4_di" bpmnElement="T4">
+        <dc:Bounds x="1280" y="464" width="140" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="g2_di" bpmnElement="g2" isMarkerVisible="true">
+        <dc:Bounds x="1495" y="479" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1481" y="446" width="78" height="28" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="T5_di" bpmnElement="T5">
+        <dc:Bounds x="1620" y="464" width="140" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="m2_di" bpmnElement="m2" isMarkerVisible="true">
+        <dc:Bounds x="1835" y="479" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="E_ok_di" bpmnElement="E_ok">
+        <dc:Bounds x="2012" y="486" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1989" y="527" width="82" height="41" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="D_phieu_di" bpmnElement="D_phieu">
+        <dc:Bounds x="1332" y="564" width="36" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1374" y="582" width="79" height="15" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="DataOut_24_di" bpmnElement="DataOut_24">
+        <di:waypoint x="1350" y="544" />
+        <di:waypoint x="1350" y="564" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_7_di" bpmnElement="Flow_7">
+        <di:waypoint x="348" y="504" />
+        <di:waypoint x="430" y="504" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_8_di" bpmnElement="Flow_8">
+        <di:waypoint x="570" y="504" />
+        <di:waypoint x="652" y="504" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_9_di" bpmnElement="Flow_9">
+        <di:waypoint x="688" y="504" />
+        <di:waypoint x="815" y="504" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_10_di" bpmnElement="Flow_10">
+        <di:waypoint x="840" y="529" />
+        <di:waypoint x="840" y="606" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="847" y="549" width="59" height="28" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_11_di" bpmnElement="Flow_11">
+        <di:waypoint x="865" y="504" />
+        <di:waypoint x="940" y="504" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="873" y="484" width="16" height="15" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_12_di" bpmnElement="Flow_12">
+        <di:waypoint x="1080" y="504" />
+        <di:waypoint x="1110" y="504" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_13_di" bpmnElement="Flow_13">
+        <di:waypoint x="1250" y="504" />
+        <di:waypoint x="1280" y="504" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_14_di" bpmnElement="Flow_14">
+        <di:waypoint x="1420" y="504" />
+        <di:waypoint x="1495" y="504" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_15_di" bpmnElement="Flow_15">
+        <di:waypoint x="1545" y="504" />
+        <di:waypoint x="1620" y="504" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1553" y="484" width="16" height="15" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_16_di" bpmnElement="Flow_16">
+        <di:waypoint x="1520" y="529" />
+        <di:waypoint x="1520" y="579" />
+        <di:waypoint x="1860" y="579" />
+        <di:waypoint x="1860" y="529" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1527" y="549" width="35" height="15" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_17_di" bpmnElement="Flow_17">
+        <di:waypoint x="1760" y="504" />
+        <di:waypoint x="1835" y="504" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_18_di" bpmnElement="Flow_18">
+        <di:waypoint x="1885" y="504" />
+        <di:waypoint x="2012" y="504" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Msg_19_di" bpmnElement="Msg_19">
+        <di:waypoint x="500" y="464" />
+        <di:waypoint x="500" y="250" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="404" y="257" width="89" height="28" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Msg_20_di" bpmnElement="Msg_20">
+        <di:waypoint x="670" y="250" />
+        <di:waypoint x="670" y="486" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="677" y="257" width="67" height="28" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Msg_21_di" bpmnElement="Msg_21">
+        <di:waypoint x="1010" y="250" />
+        <di:waypoint x="1010" y="464" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1017" y="257" width="39" height="15" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Msg_22_di" bpmnElement="Msg_22">
+        <di:waypoint x="1350" y="464" />
+        <di:waypoint x="1350" y="250" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1357" y="257" width="79" height="15" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Msg_23_di" bpmnElement="Msg_23">
+        <di:waypoint x="1690" y="464" />
+        <di:waypoint x="1690" y="250" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1697" y="257" width="72" height="15" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Note_1_di" bpmnElement="Note_1" bioc:stroke="#374151" color:border-color="#374151">
+        <dc:Bounds x="160" y="30" width="620" height="56" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Note_2_di" bpmnElement="Note_2" bioc:stroke="#374151" color:border-color="#374151">
+        <dc:Bounds x="820" y="30" width="150" height="27" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Note_3_di" bpmnElement="Note_3" bioc:stroke="#15803d" color:border-color="#15803d">
+        <dc:Bounds x="990" y="30" width="190" height="27" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Note_4_di" bpmnElement="Note_4" bioc:stroke="#c2410c" color:border-color="#c2410c">
+        <dc:Bounds x="1200" y="30" width="140" height="27" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Note_5_di" bpmnElement="Note_5" bioc:stroke="#7e22ce" color:border-color="#7e22ce">
+        <dc:Bounds x="1360" y="30" width="210" height="27" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Note_6_di" bpmnElement="Note_6" bioc:stroke="#1d4ed8" color:border-color="#1d4ed8">
+        <dc:Bounds x="1590" y="30" width="240" height="27" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Note_25_di" bpmnElement="Note_25" bioc:stroke="#1d4ed8" color:border-color="#1d4ed8">
+        <dc:Bounds x="280" y="388" width="150" height="70" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Note_25_assoc_di" bpmnElement="Note_25_assoc" bioc:stroke="#1d4ed8" color:border-color="#1d4ed8">
+        <di:waypoint x="280" y="458" />
+        <di:waypoint x="330" y="486" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Note_26_di" bpmnElement="Note_26" bioc:stroke="#15803d" color:border-color="#15803d">
+        <dc:Bounds x="440" y="572" width="150" height="113" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Note_26_assoc_di" bpmnElement="Note_26_assoc" bioc:stroke="#15803d" color:border-color="#15803d">
+        <di:waypoint x="440" y="572" />
+        <di:waypoint x="500" y="544" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Note_27_di" bpmnElement="Note_27" bioc:stroke="#c2410c" color:border-color="#c2410c">
+        <dc:Bounds x="610" y="582" width="150" height="99" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Note_27_assoc_di" bpmnElement="Note_27_assoc" bioc:stroke="#c2410c" color:border-color="#c2410c">
+        <di:waypoint x="610" y="582" />
+        <di:waypoint x="670" y="522" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Note_28_di" bpmnElement="Note_28" bioc:stroke="#c2410c" color:border-color="#c2410c">
+        <dc:Bounds x="985" y="612" width="140" height="56" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Note_28_assoc_di" bpmnElement="Note_28_assoc" bioc:stroke="#c2410c" color:border-color="#c2410c">
+        <di:waypoint x="985" y="612" />
+        <di:waypoint x="1010" y="544" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Note_29_di" bpmnElement="Note_29" bioc:stroke="#c2410c" color:border-color="#c2410c">
+        <dc:Bounds x="1130" y="572" width="150" height="113" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Note_29_assoc_di" bpmnElement="Note_29_assoc" bioc:stroke="#c2410c" color:border-color="#c2410c">
+        <di:waypoint x="1130" y="572" />
+        <di:waypoint x="1180" y="544" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Note_30_di" bpmnElement="Note_30" bioc:stroke="#15803d" color:border-color="#15803d">
+        <dc:Bounds x="1180" y="352" width="150" height="84" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Note_30_assoc_di" bpmnElement="Note_30_assoc" bioc:stroke="#15803d" color:border-color="#15803d">
+        <di:waypoint x="1330" y="436" />
+        <di:waypoint x="1325" y="464" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Note_31_di" bpmnElement="Note_31" bioc:stroke="#7e22ce" color:border-color="#7e22ce">
+        <dc:Bounds x="1320" y="638" width="200" height="70" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Note_31_assoc_di" bpmnElement="Note_31_assoc" bioc:stroke="#7e22ce" color:border-color="#7e22ce">
+        <di:waypoint x="1320" y="638" />
+        <di:waypoint x="1350" y="614" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Note_32_di" bpmnElement="Note_32" bioc:stroke="#c2410c" color:border-color="#c2410c">
+        <dc:Bounds x="1705" y="352" width="210" height="84" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Note_32_assoc_di" bpmnElement="Note_32_assoc" bioc:stroke="#c2410c" color:border-color="#c2410c">
+        <di:waypoint x="1705" y="436" />
+        <di:waypoint x="1705" y="464" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
