@@ -9,6 +9,14 @@ Tên: Trả thiết bị và hoàn tất yêu cầu.
 
 Đây là mô hình As-Is sơ bộ, dựng từ tài liệu công khai và hiểu biết của nhóm nghiên cứu. Đây không phải quy trình nội bộ chính thức của CellphoneS.
 
+## Mô tả quy trình (văn xuôi, dùng cho báo cáo)
+
+Quy trình con này bắt đầu khi có kết quả xử lý, hoặc khi thiết bị phải được trả lại vì không xử lý được. Cửa hàng nhận kết quả và nhận lại thiết bị, đối chiếu kết quả và xác định thiết bị đã sẵn sàng trả, sau đó báo khách đến nhận. Từ đây quy trình chờ một trong hai sự kiện. Nếu khách đến cửa hàng, việc trả máy được tiếp tục. Nếu hết 60 ngày hiệu lực của phiếu tiếp nhận mà khách không đến, cửa hàng tháo gỡ linh kiện của thiết bị để tái chế theo quy định đã công bố, và yêu cầu kết thúc.
+
+Khi khách đến nhận, nhân viên kiểm tra phiếu tiếp nhận. Theo quy định công khai, cửa hàng không trả máy nếu khách không có phiếu. Cách xử lý khi khách làm mất phiếu chưa được công bố, nên mô hình không giả định một hình thức xác minh thay thế. Khi khách có phiếu, nhân viên bàn giao thiết bị để khách kiểm tra. Nếu khách không nhận vì thiết bị còn lỗi, việc bàn giao chưa được xem là hoàn tất và yêu cầu chuyển sang xử lý ngoại lệ. Nếu khách nhận thiết bị, cửa hàng thu phí sửa chữa khi có phát sinh, thu lại máy dùng tạm nếu khách đã mượn, rồi hoàn tất yêu cầu.
+
+Quy trình phân biệt rõ các kết thúc: thiết bị được trả sau khi sửa chữa, bảo hành hoặc thay thế; thiết bị được trả ở trạng thái chưa sửa; thiết bị bị tháo gỡ linh kiện do quá hạn 60 ngày; và các trường hợp chưa hoàn tất bàn giao. Việc đã bàn giao thiết bị không đồng nghĩa với việc đã sửa chữa thành công. Hạn 60 ngày là điều kiện thời gian duy nhất trong mô hình, vì đây là con số duy nhất có nguồn công khai. Người báo khách và kênh thông báo, cách cửa hàng nhận lại thiết bị từ nơi xử lý, nơi thu phí và thao tác đóng hồ sơ là những nội dung cần khảo sát.
+
 ## Mục đích
 
 Trả thiết bị cho khách, giải quyết các nghĩa vụ liên quan và kết thúc yêu cầu.

@@ -9,6 +9,14 @@ Tên: Tiếp nhận yêu cầu và kiểm tra bảo hành tại quầy.
 
 Đây là mô hình As-Is sơ bộ, dựng từ tài liệu công khai và hiểu biết của nhóm nghiên cứu. Đây không phải quy trình nội bộ chính thức của CellphoneS.
 
+## Mô tả quy trình (văn xuôi, dùng cho báo cáo)
+
+Quy trình con này bắt đầu khi khách hàng mang thiết bị gặp lỗi đến cửa hàng CellphoneS và nêu yêu cầu bảo hành hoặc sửa chữa. Trước đó khách có thể đã liên hệ tổng đài để hỏi, nhưng cuộc gọi chỉ mang tính tư vấn. Nhân viên cửa hàng tiếp nhận yêu cầu, hỏi hiện tượng lỗi, rồi tra cứu thông tin bảo hành của thiết bị ngay tại quầy, khi khách còn giữ máy. Dựa trên kết quả tra cứu, nhân viên xác định nhóm sản phẩm và quyền lợi tương ứng theo chính sách bảo hành đã công bố. Máy mới được bảo hành theo hãng tại trung tâm bảo hành chính hãng. Máy đã kích hoạt bảo hành chính hãng được bảo hành theo hãng trong thời gian còn lại, sau đó tại CellphoneS hoặc Điện Thoại Vui. Máy cũ được bảo hành sáu tháng tại CellphoneS hoặc Điện Thoại Vui.
+
+Từ đó, nhân viên xác định hướng xử lý sơ bộ, gồm bốn khả năng: xử lý nhanh tại cửa hàng, sửa chữa hoặc bảo hành trong hệ thống, gửi bảo hành tại hãng, hoặc đổi mới. Nếu thiết bị đủ điều kiện đổi mới, tức còn trong 30 ngày và có lỗi phần cứng từ nhà sản xuất, nhân viên hướng dẫn khách sang quy trình đổi trả. Trong các trường hợp còn lại, nhân viên tư vấn hướng xử lý và chờ khách quyết định. Nếu khách đồng ý giao máy, yêu cầu chuyển sang bước nhận thiết bị và lập phiếu tiếp nhận. Nếu khách không tiếp tục, khách mang máy về; vì khách chưa giao máy nên không phát sinh thủ tục trả máy.
+
+Hướng xử lý được xác định tại quầy chỉ là phân loại sơ bộ. Việc thiết bị còn hạn bảo hành chưa đủ để khẳng định lỗi sẽ được sửa miễn phí; kết luận này chỉ có sau khi kiểm tra kỹ thuật. Trong mô hình, việc kiểm tra bảo hành tại quầy trước khi nhận máy là nhận định của nhóm nghiên cứu. Công cụ nhân viên dùng để tra cứu, quy tắc phân tuyến giữa các hướng xử lý và người kết luận lỗi thuộc nhà sản xuất là những nội dung cần khảo sát.
+
 ## Mục đích
 
 Tiếp nhận nhu cầu của khách, xác định chính sách áp dụng và hướng xử lý sơ bộ, để khách quyết định có giao máy hay không.

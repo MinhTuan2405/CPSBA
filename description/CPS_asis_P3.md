@@ -9,6 +9,14 @@ Tên: Chuyển thiết bị đến nơi xử lý.
 
 Đây là mô hình As-Is sơ bộ, dựng từ tài liệu công khai và hiểu biết của nhóm nghiên cứu. Đây không phải quy trình nội bộ chính thức của CellphoneS.
 
+## Mô tả quy trình (văn xuôi, dùng cho báo cáo)
+
+Quy trình con này bắt đầu khi thiết bị đã được cửa hàng nhận giữ và cần được chuyển đến nơi kiểm tra, sửa chữa. Cửa hàng xác định nơi xử lý cụ thể dựa trên nhóm sản phẩm và chính sách bảo hành, sau đó chuẩn bị hồ sơ và thông tin yêu cầu. Thiết bị được chuyển theo một trong hai tuyến. Ở tuyến trong hệ thống, cửa hàng bàn giao thiết bị và hồ sơ cho bộ phận sửa chữa, tức Điện Thoại Vui hoặc CareS đối với thiết bị Apple. Ở tuyến hãng, cửa hàng gửi thiết bị và hồ sơ đến trung tâm bảo hành của hãng, rồi chờ hãng phản hồi việc tiếp nhận.
+
+Sau khi chuyển, nơi xử lý có thể phản hồi theo ba cách. Nếu nơi xử lý đã nhận thiết bị, quy trình con kết thúc. Nếu nơi xử lý yêu cầu bổ sung thông tin, cửa hàng bổ sung theo yêu cầu. Nếu nơi xử lý không tiếp nhận theo tuyến đã chọn, cửa hàng xác định lại nơi xử lý; khi không còn nơi nào phù hợp, thiết bị được trả lại cho khách ở trạng thái chưa xử lý.
+
+Mô hình tách riêng hai mốc thời gian: thời điểm cửa hàng giao thiết bị đi và thời điểm nơi xử lý thực sự nhận được thiết bị. Khoảng cách giữa hai mốc này cho biết thiết bị nằm chờ ở khâu vận chuyển hay ở khâu tiếp nhận. Đây là quy trình con có ít căn cứ công khai nhất. Tài liệu công khai chỉ xác nhận nơi bảo hành theo từng nhóm sản phẩm và việc cửa hàng tiếp nhận để gửi máy bảo hành chính hãng. Người chỉ định nơi xử lý, cách vận chuyển, hình thức xác nhận bàn giao và cách xử lý các tình huống ngoại lệ đều cần khảo sát. Mô hình không giả định sự tồn tại của bộ phận kho vận, cấp phê duyệt, biên bản giao nhận hay phần mềm quản lý vận chuyển.
+
 ## Mục đích
 
 Chuyển thiết bị và thông tin yêu cầu từ cửa hàng đến nơi chịu trách nhiệm kiểm tra, sửa chữa.

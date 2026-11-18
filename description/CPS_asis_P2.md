@@ -9,6 +9,14 @@ Tên: Nhận thiết bị và lập phiếu tiếp nhận.
 
 Đây là mô hình As-Is sơ bộ, dựng từ tài liệu công khai và hiểu biết của nhóm nghiên cứu. Đây không phải quy trình nội bộ chính thức của CellphoneS.
 
+## Mô tả quy trình (văn xuôi, dùng cho báo cáo)
+
+Quy trình con này bắt đầu khi khách hàng đồng ý giao máy sau khi được tư vấn tại quầy. Trước khi nhận thiết bị, nhân viên hướng dẫn khách thoát các tài khoản cá nhân và tự sao lưu dữ liệu. Theo quy định công khai, CellphoneS không chịu trách nhiệm về dữ liệu của khách hàng trong mọi trường hợp. Quy trình chờ khách chuẩn bị xong thiết bị; nếu khách chưa thể giao máy và ra về, yêu cầu kết thúc ở trạng thái chưa giao máy.
+
+Khi khách giao thiết bị, nhân viên nhận máy, ghi nhận thông tin tiếp nhận, rồi lập phiếu tiếp nhận và giao cho khách. Phiếu tiếp nhận là chứng từ để khách nhận lại máy: quy định công khai nêu rõ cửa hàng không trả máy nếu khách không có phiếu, và phiếu có giá trị lấy máy trong 60 ngày. Theo nhận định của nhóm nghiên cứu, phiếu được lập cho mọi thiết bị cửa hàng nhận, kể cả trường hợp lỗi sửa nhanh. Nếu chính sách áp dụng, cửa hàng giao cho khách một điện thoại dùng tạm trong thời gian chờ. Quy trình con kết thúc khi thiết bị đã được cửa hàng nhận giữ và khách đã có phiếu tiếp nhận.
+
+Các nội dung cần khảo sát gồm cách xử lý khi khách chưa chuẩn bị xong thiết bị, các trường thông tin được ghi khi nhận máy, phần mềm dùng để lập phiếu, và điều kiện cũng như thời điểm giao máy dùng tạm. Khâu chờ khách chuẩn bị thiết bị có thể là một điểm phát sinh thời gian chờ.
+
 ## Mục đích
 
 Nhận giữ thiết bị của khách và tạo chứng từ để khách nhận lại máy.

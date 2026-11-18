@@ -9,6 +9,18 @@ Quy trình: Tiếp nhận và xử lý yêu cầu bảo hành, sửa chữa thi�
 
 Đây là mô hình As-Is sơ bộ, dựng từ tài liệu công khai và hiểu biết của nhóm nghiên cứu. Đây không phải quy trình nội bộ chính thức của CellphoneS.
 
+## Mô tả quy trình (văn xuôi, dùng cho báo cáo)
+
+Quy trình tiếp nhận và xử lý yêu cầu bảo hành, sửa chữa thiết bị qua cửa hàng CellphoneS có sự tham gia của ba bên: khách hàng, hệ thống CellphoneS và trung tâm bảo hành của hãng. Trong hệ thống CellphoneS, cửa hàng là nơi tiếp nhận yêu cầu, nhận và trả thiết bị, còn việc sửa chữa do bộ phận sửa chữa đảm nhận, gồm Điện Thoại Vui và CareS đối với thiết bị Apple. Trung tâm bảo hành của hãng là bên ngoài duy nhất tham gia quy trình.
+
+Quy trình bắt đầu khi khách hàng mang thiết bị gặp lỗi đến cửa hàng và nêu yêu cầu. Nhân viên kiểm tra thông tin bảo hành ngay tại quầy, khi khách còn giữ máy, sau đó xác định hướng xử lý sơ bộ và tư vấn để khách quyết định. Nếu thiết bị đủ điều kiện đổi mới, yêu cầu được chuyển sang quy trình đổi trả. Nếu khách không tiếp tục, khách mang máy về và yêu cầu kết thúc. Nếu khách đồng ý, cửa hàng nhận thiết bị và lập phiếu tiếp nhận, là chứng từ để khách nhận lại máy.
+
+Sau khi nhận máy, thiết bị được xử lý ở một trong ba nơi. Với lỗi đơn giản, nhân viên kỹ thuật của cửa hàng xử lý nhanh tại chỗ; nếu không xử lý được và khách đồng ý, thiết bị được chuyển tiếp cho bộ phận sửa chữa. Với các trường hợp còn lại, cửa hàng chuyển thiết bị đến bộ phận sửa chữa trong hệ thống hoặc gửi đến trung tâm bảo hành của hãng. Tại bộ phận sửa chữa, thiết bị được kiểm tra, khách được báo phương án và chi phí nếu có phát sinh, và việc sửa chữa có phí chỉ được thực hiện sau khi khách đồng ý. Đối với thiết bị gửi hãng, cửa hàng chờ nhận lại kết quả và thiết bị.
+
+Khi có kết quả, cửa hàng báo khách đến nhận, kiểm tra phiếu tiếp nhận, bàn giao thiết bị, thu phí sửa chữa và thu lại máy dùng tạm nếu có. Quy trình kết thúc theo một trong các kết quả sau: thiết bị được trả sau khi sửa chữa, bảo hành hoặc thay thế; thiết bị được trả ở trạng thái chưa sửa; thiết bị bị tháo gỡ linh kiện để tái chế do quá 60 ngày khách không đến nhận; hoặc việc bàn giao chưa hoàn tất vì khách thiếu phiếu tiếp nhận hay không nhận thiết bị. Việc đã bàn giao thiết bị không đồng nghĩa với việc đã sửa chữa thành công.
+
+Mô hình được xây dựng từ tài liệu công khai và hiểu biết của nhóm nghiên cứu, không phải quy trình nội bộ chính thức của CellphoneS. Việc kiểm tra bảo hành tại quầy trước khi nhận máy, việc cửa hàng tự xử lý các lỗi đơn giản và việc lập phiếu tiếp nhận cho mọi thiết bị là nhận định của nhóm nghiên cứu. Cách chuyển thiết bị giữa các bộ phận, quy trình bên trong của hãng và cách cập nhật trạng thái cho khách hàng là những nội dung cần được khảo sát thêm.
+
 ## Mục đích
 
 Sơ đồ cho thấy toàn bộ đường đi của một yêu cầu, từ lúc khách nêu yêu cầu tại cửa hàng đến lúc yêu cầu kết thúc. Mỗi ô có dấu cộng là một quy trình con, được mô tả chi tiết ở một sơ đồ riêng.

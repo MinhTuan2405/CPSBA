@@ -9,6 +9,14 @@ Tên: Kiểm tra kỹ thuật và sửa chữa.
 
 Đây là mô hình As-Is sơ bộ, dựng từ tài liệu công khai và hiểu biết của nhóm nghiên cứu. Đây không phải quy trình nội bộ chính thức của CellphoneS.
 
+## Mô tả quy trình (văn xuôi, dùng cho báo cáo)
+
+Quy trình con này mô tả trường hợp thiết bị được sửa chữa trong hệ thống CellphoneS, tại Điện Thoại Vui hoặc CareS đối với thiết bị Apple. Quy trình bắt đầu khi bộ phận sửa chữa nhận được thiết bị từ cửa hàng. Kỹ thuật viên kiểm tra tình trạng thiết bị, chẩn đoán nguyên nhân lỗi và xác định phương án xử lý. Kết quả kiểm tra là cơ sở để xác nhận hoặc thay đổi phân loại sơ bộ đã thực hiện tại quầy: thiết bị có thể được bảo hành theo chính sách, hoặc phải sửa chữa có phí.
+
+Khi phương án không phát sinh chi phí, bộ phận sửa chữa tiến hành theo chính sách bảo hành. Khi phương án có phát sinh chi phí, bộ phận sửa chữa báo phương án và chi phí cho khách rồi chờ phản hồi. Việc sửa chữa có phí chỉ được thực hiện khi khách đồng ý; nếu khách từ chối, việc sửa chữa dừng lại và thiết bị được trả ở trạng thái chưa sửa. Trước khi sửa, nếu phải chờ linh kiện, quy trình tạm dừng cho đến khi linh kiện về. Sau khi sửa chữa hoặc thay thế linh kiện, kỹ thuật viên kiểm tra lại thiết bị. Nếu kết quả đạt, kết quả xử lý được ghi nhận. Nếu chưa đạt, thiết bị được xử lý lại khi còn khả năng; khi không thể xử lý, kết quả được ghi nhận là không sửa được. Cuối cùng, bộ phận sửa chữa chuyển kết quả và thiết bị về cửa hàng.
+
+Các bước kiểm tra, báo giá, sửa chữa sau khi khách đồng ý và kiểm tra lại có căn cứ từ quy trình phục vụ do Điện Thoại Vui và CareS công bố. Tuy nhiên, các tài liệu này viết cho khách mang máy đến trực tiếp. Đối với thiết bị nhận qua cửa hàng CellphoneS, người liên hệ với khách, kênh liên hệ và cách lưu xác nhận của khách cần được khảo sát. Việc chờ linh kiện, việc chuyển thiết bị lên trung tâm sửa chữa của Apple khi lỗi phức tạp và cách xử lý khi kiểm tra chưa đạt hiện chưa có nguồn công khai. Trường hợp thiết bị được gửi bảo hành tại hãng không thuộc sơ đồ này, vì không có thông tin về quy trình bên trong của hãng.
+
 ## Mục đích
 
 Xác định tình trạng hư hỏng, thống nhất phương án xử lý với khách và thực hiện sửa chữa.
