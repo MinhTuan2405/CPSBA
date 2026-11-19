@@ -34,7 +34,17 @@ export const COLORS = {
   survey: '#c2410c', // cần khảo sát
   team: '#7e22ce', // nhóm nghiên cứu
   time: '#1d4ed8', // khoảng thời gian cần đo
-  info: '#374151'
+  info: '#374151',
+  change: '#be123c', // To-Be: thay đổi so với As-Is
+  decide: '#0e7490', // To-Be: cần doanh nghiệp quyết định
+  newStep: '#15803d', // To-Be: chú giải cho bước mới
+  changedStep: '#b45309' // To-Be: chú giải cho bước được thay đổi
+};
+
+// Màu nền của phần tử trong bản To-Be: bước mới và bước được thay đổi
+export const MARKS = {
+  new: { fill: '#dcfce7', stroke: '#15803d' },
+  changed: { fill: '#fef3c7', stroke: '#b45309' }
 };
 
 // ---- Ước lượng bề rộng chữ (Arial) để tính kích thước nhãn và ghi chú ----
@@ -163,6 +173,7 @@ export class Diagram {
   start(id, name, opt) { return this.node(id, 'startEvent', name, opt); }
   end(id, name, opt) { return this.node(id, 'endEvent', name, opt); }
   catchEv(id, name, opt) { return this.node(id, 'intermediateCatchEvent', name, opt); }
+  throwEv(id, name, opt) { return this.node(id, 'intermediateThrowEvent', name, opt); }
   task(id, name, opt) { return this.node(id, 'task', name, opt); }
   sub(id, name, opt) { return this.node(id, 'subProcess', name, opt); }
   xor(id, name, opt) { return this.node(id, 'exclusiveGateway', name, opt); }
@@ -419,7 +430,7 @@ export class Diagram {
     const defs = m('bpmn:Definitions', {
       id: `Definitions_${o.id}`,
       targetNamespace: 'http://bpmn.io/schema/bpmn',
-      exporter: 'CellphoneS As-Is BPMN generator',
+      exporter: o.exporter || 'CellphoneS As-Is BPMN generator',
       exporterVersion: '1.0'
     });
     const collab = m('bpmn:Collaboration', { id: `Collaboration_${o.id}` });
@@ -454,6 +465,7 @@ export class Diagram {
       const def = n.opt.def;
       if (def === 'message') el.get('eventDefinitions').push(m('bpmn:MessageEventDefinition', { id: `${n.id}_def` }));
       if (def === 'timer') el.get('eventDefinitions').push(m('bpmn:TimerEventDefinition', { id: `${n.id}_def` }));
+      if (def === 'link') el.get('eventDefinitions').push(m('bpmn:LinkEventDefinition', { id: `${n.id}_def`, name: n.opt.link || n.name }));
       if (def === 'conditional')
         el.get('eventDefinitions').push(
           m('bpmn:ConditionalEventDefinition', { id: `${n.id}_def`, condition: m('bpmn:FormalExpression', { body: n.name }) })
@@ -466,7 +478,15 @@ export class Diagram {
       if (n.type === 'subProcess') attrs.isExpanded = false;
       const lb = this.nodeLabel(n);
       if (lb) attrs.label = m('bpmndi:BPMNLabel', { bounds: B(lb) });
-      planeEls.push(m('bpmndi:BPMNShape', attrs));
+      const nodeShape = m('bpmndi:BPMNShape', attrs);
+      const mk = n.opt.mark && MARKS[n.opt.mark];
+      if (mk) {
+        nodeShape.set('bioc:stroke', mk.stroke);
+        nodeShape.set('bioc:fill', mk.fill);
+        nodeShape.set('color:border-color', mk.stroke);
+        nodeShape.set('color:background-color', mk.fill);
+      }
+      planeEls.push(nodeShape);
     }
 
     // Data Object
@@ -587,5 +607,25 @@ export class Diagram {
     this.note('Cam: cần khảo sát', { at: { x: x + 380, y }, w: 140, kind: 'survey' });
     this.note('Tím: do nhóm nghiên cứu đưa ra', { at: { x: x + 540, y }, w: 210, kind: 'team' });
     this.note('Xanh dương: khoảng thời gian cần đo', { at: { x: x + 770, y }, w: 240, kind: 'time' });
+  }
+
+  // Tiêu đề và chú giải của bản To-Be
+  headerToBe(title) {
+    const o = this.o;
+    this.note(
+      `${title}
+Mô hình To-Be đề xuất, dựng từ các điểm nghẽn tiềm ẩn của mô hình As-Is. Các điểm nghẽn chưa được đo, nên mỗi thay đổi cần được kiểm chứng trước khi áp dụng. Đây không phải quy trình chính thức của CellphoneS.`,
+      { at: { x: o.x0, y: 30 }, w: 640, kind: 'info' }
+    );
+    const x = o.x0 + 680;
+    const y1 = 30;
+    const y2 = 66;
+    this.note('Chú giải', { at: { x, y: y1 }, w: 80, kind: 'info' });
+    this.note('Ô nền xanh lá: bước mới', { at: { x: x + 100, y: y1 }, w: 180, kind: 'newStep' });
+    this.note('Ô nền vàng: bước As-Is được thay đổi', { at: { x: x + 300, y: y1 }, w: 250, kind: 'changedStep' });
+    this.note('Ghi chú đỏ: nội dung thay đổi so với As-Is', { at: { x: x + 570, y: y1 }, w: 280, kind: 'change' });
+    this.note('Ghi chú xanh ngọc: cần doanh nghiệp quyết định', { at: { x: x + 100, y: y2 }, w: 310, kind: 'decide' });
+    this.note('Ghi chú cam: cần khảo sát trước khi áp dụng', { at: { x: x + 430, y: y2 }, w: 290, kind: 'survey' });
+    this.note('Ghi chú xanh dương: mốc thời gian được lưu lại', { at: { x: x + 740, y: y2 }, w: 300, kind: 'time' });
   }
 }

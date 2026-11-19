@@ -3,6 +3,7 @@
 // 2. Đối chiếu với lược đồ XSD BPMN 2.0 của OMG.
 // 3. Chạy bộ quy tắc bpmnlint:recommended.
 // 4. Kiểm tra cấu trúc theo yêu cầu của đề bài.
+// Cách dùng: node check.mjs [--tobe]
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -10,11 +11,13 @@ import * as BpmnModdlePkg from 'bpmn-moddle';
 import { Linter } from 'bpmnlint';
 import NodeResolver from 'bpmnlint/lib/resolver/node-resolver.js';
 import { validateXML } from 'xmllint-wasm';
+import { variant } from './lib/variant.mjs';
 
 const BpmnModdle = BpmnModdlePkg.BpmnModdle || BpmnModdlePkg.default;
 const here = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(here, '..');
 const all = ['Level0', 'P1', 'P2', 'P3', 'P4', 'P5'];
+const v = variant(process.argv.slice(2));
 const xsd = (f) => ({ fileName: f, contents: fs.readFileSync(path.join(here, 'xsd', f), 'utf8') });
 
 let failed = 0;
@@ -22,9 +25,9 @@ let accepted = 0;
 const fail = (msg) => { failed++; console.log('   LỖI: ' + msg); };
 
 for (const n of all) {
-  const file = path.join(root, 'bpmn', `CellphoneS_AsIs_${n}.bpmn`);
+  const file = path.join(root, 'bpmn', `${v.prefix}${n}.bpmn`);
   const xml = fs.readFileSync(file, 'utf8');
-  console.log(`== ${n}`);
+  console.log(`== ${v.label} ${n}`);
 
   // 1. bpmn-moddle
   const moddle = new BpmnModdle();
@@ -81,12 +84,18 @@ for (const n of all) {
       if (ownerOf.get(f.sourceRef) !== ownerOf.get(f.targetRef)) fail(`Sequence Flow ${f.id} đi qua ranh giới pool`);
       if (!els.includes(f.sourceRef) || !els.includes(f.targetRef)) fail(`Sequence Flow ${f.id} nối ra ngoài process`);
     }
+    // Điểm nối (link): luồng đi tiếp từ sự kiện ném sang sự kiện bắt cùng tên
+    const linkName = (x) => ((x.eventDefinitions || []).find((d) => d.$type === 'bpmn:LinkEventDefinition') || {}).name;
+    const linkThrows = nodes.filter((x) => x.$type === 'bpmn:IntermediateThrowEvent' && linkName(x));
+    const linkCatches = nodes.filter((x) => x.$type === 'bpmn:IntermediateCatchEvent' && linkName(x));
+    for (const t of linkThrows) if (linkCatches.filter((c) => linkName(c) === linkName(t)).length !== 1) fail(`Điểm nối ${t.id} không có đúng một điểm đến cùng tên`);
+    for (const c of linkCatches) if (!linkThrows.some((t) => linkName(t) === linkName(c))) fail(`Điểm nối ${c.id} không có điểm đi cùng tên`);
     for (const nd of nodes) {
       const inc = nd.incoming || [];
       const out = nd.outgoing || [];
       if (!inLane.has(nd)) fail(`${nd.id} không thuộc lane nào`);
-      if (nd.$type !== 'bpmn:StartEvent' && !inc.length) fail(`${nd.id} không có luồng vào`);
-      if (nd.$type !== 'bpmn:EndEvent' && !out.length) fail(`${nd.id} không có luồng ra`);
+      if (nd.$type !== 'bpmn:StartEvent' && !inc.length && !linkCatches.includes(nd)) fail(`${nd.id} không có luồng vào`);
+      if (nd.$type !== 'bpmn:EndEvent' && !out.length && !linkThrows.includes(nd)) fail(`${nd.id} không có luồng ra`);
       if (!isA(nd, 'bpmn:Gateway') && !(nd.name || '').trim()) fail(`${nd.id} thiếu tên`);
       if (nd.$type === 'bpmn:ExclusiveGateway' && out.length > 1) {
         if (!(nd.name || '').trim()) fail(`Gateway ${nd.id} thiếu câu hỏi quyết định`);
@@ -111,8 +120,14 @@ for (const n of all) {
       while (q.length) for (const m of next(q.pop())) if (!seen.has(m)) { seen.add(m); q.push(m); }
       return seen;
     };
-    const fwd = walk(nodes.filter((x) => x.$type === 'bpmn:StartEvent'), (x) => (x.outgoing || []).map((f) => f.targetRef));
-    const bwd = walk(nodes.filter((x) => x.$type === 'bpmn:EndEvent'), (x) => (x.incoming || []).map((f) => f.sourceRef));
+    const fwd = walk(nodes.filter((x) => x.$type === 'bpmn:StartEvent'), (x) => [
+      ...(x.outgoing || []).map((f) => f.targetRef),
+      ...(linkThrows.includes(x) ? linkCatches.filter((c) => linkName(c) === linkName(x)) : [])
+    ]);
+    const bwd = walk(nodes.filter((x) => x.$type === 'bpmn:EndEvent'), (x) => [
+      ...(x.incoming || []).map((f) => f.sourceRef),
+      ...(linkCatches.includes(x) ? linkThrows.filter((t) => linkName(t) === linkName(x)) : [])
+    ]);
     for (const nd of nodes) {
       if (!fwd.has(nd)) fail(`${nd.id} không đi tới được từ điểm bắt đầu`);
       if (!bwd.has(nd)) fail(`${nd.id} không dẫn tới điểm kết thúc nào (luồng kẹt hoặc lặp vô hạn)`);

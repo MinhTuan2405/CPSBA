@@ -1,13 +1,15 @@
 // Mở từng tệp .bpmn bằng thư viện bpmn-js (bpmn.io), ghi lại cảnh báo khi nhập,
-// rồi xuất SVG và PNG. Cách dùng: node render.mjs [--tiles <thư mục>] [Level0 P1 ...]
+// rồi xuất SVG và PNG. Cách dùng: node render.mjs [--tobe] [--tiles <thư mục>] [Level0 P1 ...]
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import puppeteer from 'puppeteer-core';
+import { variant } from './lib/variant.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(here, '..');
 const args = process.argv.slice(2);
+const v = variant(args);
 let tilesDir = null;
 const ti = args.indexOf('--tiles');
 if (ti >= 0) { tilesDir = args[ti + 1]; args.splice(ti, 2); }
@@ -22,7 +24,7 @@ if (tilesDir) fs.mkdirSync(tilesDir, { recursive: true });
 
 let failed = 0;
 for (const n of names) {
-  const file = path.join(root, 'bpmn', `CellphoneS_AsIs_${n}.bpmn`);
+  const file = path.join(root, 'bpmn', `${v.prefix}${n}.bpmn`);
   if (!fs.existsSync(file)) continue;
   const xml = fs.readFileSync(file, 'utf8');
   const page = await browser.newPage();
@@ -56,14 +58,14 @@ for (const n of names) {
     for (const w of res.warnings) console.log('   ' + w);
     continue;
   }
-  fs.writeFileSync(path.join(root, 'svg', `CellphoneS_AsIs_${n}.svg`), res.svg);
+  fs.writeFileSync(path.join(root, 'svg', `${v.prefix}${n}.svg`), res.svg);
   const m = res.svg.match(/<svg[^>]*width="([\d.]+)"[^>]*height="([\d.]+)"/);
   const w = Math.ceil(+m[1]);
   const h = Math.ceil(+m[2]);
   const p2 = await browser.newPage();
   await p2.setViewport({ width: w + 40, height: h + 40, deviceScaleFactor: 2 });
   await p2.setContent(`<!doctype html><html><body style="margin:20px;background:#fff">${res.svg}</body></html>`);
-  await p2.screenshot({ path: path.join(root, 'png', `CellphoneS_AsIs_${n}.png`), fullPage: true });
+  await p2.screenshot({ path: path.join(root, 'png', `${v.prefix}${n}.png`), fullPage: true });
   if (tilesDir) {
     await p2.setViewport({ width: w + 40, height: h + 40, deviceScaleFactor: 0.78 });
     const tw = 1900;
