@@ -10,6 +10,7 @@ Mô hình As-Is là mô hình sơ bộ, dựng từ tài liệu công khai và h
 |---|---|
 | `bpmn/` | Mười hai tệp BPMN 2.0, mở bằng Camunda Modeler hoặc bpmn.io: sáu tệp As-Is và sáu tệp To-Be |
 | `png/`, `svg/` | Ảnh của mười hai sơ đồ |
+| `drawio/` | Mười hai sơ đồ ở định dạng draw.io, chuyển từ các tệp trong `bpmn/`, mở bằng draw.io (diagrams.net) |
 | `description/` | Mô tả nghiệp vụ của từng sơ đồ: tệp `CPS_asis_*` cho As-Is, tệp `CPS_tobe_*` cho To-Be |
 | `bottle_neck/` | Điểm nghẽn tiềm ẩn của từng sơ đồ As-Is và đề xuất cách giải quyết, bắt đầu từ [`bottle_neck/README.md`](bottle_neck/README.md) |
 | `nghiep-vu.md` | Bản mô tả nghiệp vụ As-Is đầy đủ |
@@ -67,4 +68,10 @@ Bản To-Be được sinh từ các tệp trong `tools/diagrams-tobe/`. Thêm `-
 node build.mjs --tobe
 node check.mjs --tobe
 node render.mjs --tobe
+```
+
+Bản draw.io của cả hai bộ được chuyển từ các tệp trong `bpmn/`, nên chạy sau khi dựng xong:
+
+```
+node drawio.mjs
 ```
